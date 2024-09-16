@@ -20,7 +20,19 @@ export class AppComponent {
   // injection du service
   pokemonService = inject(PokemonService);
   // on récupère la liste
-  pokemonList = signal(this.pokemonService.getPokemonList());
+  pokemonsList = signal(this.pokemonService.getPokemonList());
+
+  // pour le champ de recherche
+  readonly searchTerm = signal('');
+  // pour la recherche
+  readonly pokemonListFiltered = computed(() => {
+    return this.pokemonsList().filter((pokemon) =>
+      pokemon.name
+        .toLowerCase()
+        .includes(this.searchTerm().trim().toLocaleLowerCase())
+    )
+  });
+        
   
   imageSrc = signal('https://assets.pokemon.com/assets/cms2/img/pokedex/detail/025.png');
   // on affecte le liste importé en signal à pokemonsList
