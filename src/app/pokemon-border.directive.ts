@@ -1,4 +1,5 @@
 import { Directive, ElementRef, HostListener, input } from '@angular/core';
+import { getPokemonColor } from './pokemon.model';
 
 @Directive({
   selector: '[appPokemonBorder]',
@@ -17,7 +18,9 @@ export class PokemonBorderDirective {
    }
 
    @HostListener('mouseenter') OnMouseEnter(){
-    const color=this.getBorderColor();
+    //const color=this.getBorderColor();
+    const color = getPokemonColor(this.pokemonType());
+
     this.setBorder(color);
     console.log(this.pokemonType)
    }
@@ -27,11 +30,11 @@ export class PokemonBorderDirective {
     this.setBorder(color);
    }
 
-
    private setBorder(color:String){
     this.el.nativeElement.style.borderColor = color;
    }
 
+   /*
    private getBorderColor(){
     switch (this.pokemonType()){
       case 'Feu':
@@ -52,6 +55,6 @@ export class PokemonBorderDirective {
         return '#f4ff81';
       default:
         return '#303030';
-    }
-   }
+    } 
+   } */
 }
